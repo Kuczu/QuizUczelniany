@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz details</title>
+</head>
+<body>
+<h1>{{ predefined_quiz.quiz_name }} pytania:</h1>
+
+{% if questions %}
+    {% for q in questions %}
+    <li>
+        <a href=''>{{  q.question_content }} </a>
+        {{ q.question_author }}
+    </li>
+    {% endfor %}
+{% else %}
+    <h3>Brak Pytan! Dodaj jakieś :)</h3>
+{% endif %}
+<form method="POST" action="{% url 'quizzes:add_quiz' group_id %}">
+    {% csrf_token %}
+    <button type="submit">Dodaj quiz!</button>
+</form>
+
+<a href="{% url 'quizzes:list'  group_id %}"> Powrót </a>
+
+</body>
+</html>
