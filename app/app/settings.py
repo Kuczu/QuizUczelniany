@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'users.User'
 
 INSTALLED_APPS = [
+    'widget_tweaks',
+    'quizzes.apps.QuizzesConfig',
     'users.apps.UsersConfig',
     'groups.apps.GroupsConfig',
     'django.contrib.admin',
