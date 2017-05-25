@@ -19,4 +19,5 @@ from django.conf.urls import include, url
 urlpatterns = [
     url(r'', include('users.urls')),
     url(r'', include('groups.urls')),
+    url(r'', include('quizzes.urls')),
 ]
