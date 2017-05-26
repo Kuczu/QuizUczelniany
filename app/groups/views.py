@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from .forms import *
 from .models import *
 from django.db.models import Q
+from quizzes.views import *
 
 
 def index(request):
@@ -62,14 +63,16 @@ def enter_into_group(request, group_id):
     group = Group.objects.filter(id=group_id).first()
     group_with_tags = associate_tags_with_given_groups([group])[0]
     user_group_details = get_user_group_details(request.user.id, group_id)
+    quizzes = quizzes_list(request, group_id)
 
     if not user_group_details['is_in_group'] or not user_group_details['is_member']:
         return render(request, 'not_a_member.html',
                       {'group_with_tags': group_with_tags, 'user_group_details': user_group_details})
 
     if user_group_details['is_member']:
+        is_group_admin = True #TODO check if really is
         return render(request, 'group_index.html',
-                      {'group_with_tags': group_with_tags, 'user_group_details': user_group_details})
+                      {'group_with_tags': group_with_tags, 'user_group_details': user_group_details, 'quizzes_list': quizzes, 'is_admin': is_group_admin, 'group_id': group_id})
 
 
 def become_member(request, group_id):

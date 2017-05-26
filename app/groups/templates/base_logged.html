@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
-	<link rel="stylesheet" href="./style.css">
+	<link rel="stylesheet" href="//kubahaha.tk/quiz/style.css">
 </head>
 
 <body>
@@ -29,6 +29,12 @@
 					</div>
 				</div>
 			</div>
+			{% if is_admin %}
+			<div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+				<a href="#overwiev" class="mdl-layout__tab is-active">Grupa</a>
+				<a href="#settings" class="mdl-layout__tab">Administracja</a>
+			</div>
+			{% endif %}
 		</header>
 		<div class="mdl-layout__drawer">
 			<span class="mdl-layout-title">Menu</span>

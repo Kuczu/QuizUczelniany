@@ -11,7 +11,8 @@ def quizzes_list(request, group_id=None):
         'all_quizzes': all_quizzes,
         'group_id': group_id
     }
-    return render(request, 'list.html', context)
+    print(group_id)
+    return context#render(request, 'list.html', context)
 
 
 def detail(request, id=None, group_id=None):

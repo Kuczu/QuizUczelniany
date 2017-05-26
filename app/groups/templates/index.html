@@ -1,53 +1,47 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% if request.user.is_authenticated %}Welcome '{{ request.user.email }}' {{ request.user.username }}{% endif %}
-<br>
-
-<form method="POST" action="{% url 'user:logout' %}">
-    {% csrf_token %}
-    <button type="submit">Wyloguj!</button>
-</form>
-
-<br>
-
-<form method="GET" action="{% url 'group:search_groups' %}">
-    <input type="text" name="q">
-    <button type="submit">Szukaj!</button>
-</form>
-
-<br>
-
-{#<form method="POST" action="{% url 'group:add_group' %}">#}
-{#    {% csrf_token %}#}
-{#    <button type="submit">Dodaj grupe!</button>#}
-{#</form>#}
-
-<a href="{% url 'group:add_group' %}">Dodaj grupe!</a>
-
-<br>
-<h1>Lista grup:</h1>
-<br>
-{% for key, group in groups_with_tags.items %}
-    Nazwa: {{ group.Group.group_name }} {{ group.Group.group_status }}
-    <br>
-    Id: {{ group.Group.id }}
-    <br>
-    Opis: {{ group.Group.group_description }}
-    <br>
-    {% for tag in group.Tags %}
-        tag: {{ tag.tag_name }}
-    <br>
-    {% endfor %}
-
-    <a href="/group/{{ group.Group.id }}/quizzes/">Wejdź!</a>
-
-    <br>
-    <br>
-{% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Panel użytkownika{% endblock %}
+{% block title2 %}Panel użytkownika{% endblock %}
+{% load widget_tweaks %}
+{% block body %}
+		<main class="mdl-layout__content group-content">
+			<section class="mdl-layout__tab-panel is-active" id="overwiev">
+			<div class="page-content">
+				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--12-col">
+						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+							<h4 class="mdl-cell mdl-cell--12-col">Grupy którymi zarządzasz</h4>
+							<div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+								<div class="section__circle-container__circle mdl-color--green">
+									<i class="material-icons">group</i>
+								</div>
+							</div>
+							<div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+								<h5>Egzamin z Mordoru 2012</h5>
+								Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation
+								nostrud quis <a href="./quiz.html">Zobacz grupę</a>.
+							</div>
+							<h4 class="mdl-cell mdl-cell--12-col">Grupy do których należysz</h4>
+							{% for key, group in groups_with_tags.items %}
+								<div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+									<div class="section__circle-container__circle mdl-color--green">
+										<i class="material-icons">group</i>
+									</div>
+								</div>
+								<div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+									<h5>{{ group.Group.group_name }} {{ group.Group.group_status }}</h5>
+									<div class="tag-container">
+										{% for tag in group.Tags %}
+											<span class="mdl-chip"><span class="mdl-chip__text">{{ tag.tag_name }}</span></span>
+										{% endfor %}
+									</div>
+									ID grupy: {{ group.Group.id }}<br>
+									{{ group.Group.group_description }} <a href="{% url 'group:go_to_group' group.Group.id %}">Przejdź do grupy</a>.
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</section>
+			</div>
+			</section>
+		</main>
+{% endblock %}

@@ -7,7 +7,7 @@
 <body>
 
 
-<form method="post" action="/quizzes/list">
+<form method="post" action="{% url 'quizzes:list' group_id=group_id %}">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Dodaj nowy quiz!</button>
