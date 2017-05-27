@@ -8,8 +8,7 @@ class PredefinedQuizForm(forms.ModelForm):
         fields = [
             'quiz_name',
             'quiz_description',
-            'quiz_author',
-            'quiz_time_limit'
+            'quiz_time_limit',
         ]
 
 

@@ -11,7 +11,7 @@
     {% for q in questions %}
     <li>
         <a href=''>{{  q.question_content }} </a>
-        {{ q.question_author }}
+        {{ q.quiz_author.username }}
     </li>
     {% endfor %}
 {% else %}

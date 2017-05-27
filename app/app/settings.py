@@ -97,11 +97,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'QuizUczelniany',
-        'USER': 'QuizUczelniany',
-        'PASSWORD': '123',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': 'quizUczelniany',
+        'USER': 'quiz',
+        'PASSWORD': '65aSGi5RidnmY9FBr7Bc',
+        'HOST': '185.164.138.19',
+        'PORT': '19910',
     }
 }
 
