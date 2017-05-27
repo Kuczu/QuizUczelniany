@@ -31,16 +31,18 @@
 					<div class="mdl-card mdl-cell mdl-cell--12-col">
 						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
 							<h4 class="mdl-cell mdl-cell--12-col">Ułożone quizy</h4>
-							{% for key, quiz in all_quizzes.items %}
+							{% for quiz in quizzes_list %}
 								<div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+
 									<div class="section__circle-container__circle mdl-color--primary"></div>
 								</div>
 								<div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-									<h5>{{ quiz.nazwa }}</h5>
-									aDolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation
-									nostrud quis <a href="./quiz.html">Rozwiąż quiz</a>.
+									<h5>{{ quiz.quiz_name }}</h5>
+									{{ quiz.quiz_description }}
+                                    <a href="{% url 'quizzes:detail' group_id quiz.id %}">Rozwiąż quiz</a>.
 								</div>
 							{% endfor %}
+
 						</div>
 						<div class="mdl-card__actions mdl-card--border">
 							<a href="{% url 'quizzes:add_quiz' group_id=group_id %}" class="mdl-button">Ułóż własny quiz</a>
