@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_logged.html' %}
 {% block title %}Panel użytkownika{% endblock %}
 {% block title2 %}Panel użytkownika{% endblock %}
 {% load widget_tweaks %}
@@ -8,8 +8,8 @@
 			<div class="page-content">
 				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
 					<div class="mdl-card mdl-cell mdl-cell--12-col">
-						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
-							<h4 class="mdl-cell mdl-cell--12-col">Grupy którymi zarządzasz</h4>
+						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing" id="real_dashboard">
+							<!--<h4 class="mdl-cell mdl-cell--12-col">Grupy którymi zarządzasz</h4>
 							<div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
 								<div class="section__circle-container__circle mdl-color--green">
 									<i class="material-icons">group</i>
@@ -19,10 +19,10 @@
 								<h5>Egzamin z Mordoru 2012</h5>
 								Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation
 								nostrud quis <a href="./quiz.html">Zobacz grupę</a>.
-							</div>
+							</div>-->
 							<h4 class="mdl-cell mdl-cell--12-col">Grupy do których należysz</h4>
 							{% for key, group in groups_with_tags.items %}
-								<div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+								<div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone your-group">
 									<div class="section__circle-container__circle mdl-color--green">
 										<i class="material-icons">group</i>
 									</div>
@@ -38,6 +38,13 @@
 									{{ group.Group.group_description }} <a href="{% url 'group:go_to_group' group.Group.id %}">Przejdź do grupy</a>.
 								</div>
 							{% endfor %}
+							<script>
+								if (document.getElementsByClassName("your-group").length === 0) {
+									var p = document.createElement("p");
+									p.innerHTML = "Nie należysz do żadnej grupy";
+									document.getElementById("real_dashboard").appendChild(p);
+								}
+							</script>
 						</div>
 					</div>
 				</section>

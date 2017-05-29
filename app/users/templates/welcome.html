@@ -33,7 +33,7 @@
 			</div>
 			<div class="mdl-cell mdl-cell--2-offset-desktop mdl-cell--4-col">
 				<h3>Nie posiadasz konta? Zarejestruj się</h3>
-				<form method="POST" action="{% url 'user:registration' %}">
+				<form method="POST" action="{% url 'user:registration' %}" id="form-id">
 					{% csrf_token %}
 					{{ register_form.errors }}
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

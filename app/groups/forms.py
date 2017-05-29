@@ -35,7 +35,7 @@ class AddTags(forms.Form):
                                        validators=[self.tag_name_validator],
                                        error_messages={
                                            'unique': _("Tag o takiej nazwie już istnieje"),
-                                           'invalid': _("Podaj poprawną nazwę tag"),
+                                           'invalid': _("Podaj poprawną nazwę tagu. Dozwolone są litery, cyfry i @/./+/-/_."),
                                        },
                                        required=False)
             self.fields.update({'tag_name_%s' % i: tag_temp})

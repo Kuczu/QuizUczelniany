@@ -1,15 +1,67 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Dodaj grupe!</title>
-</head>
-<body>
-<form method="POST" action="{% url 'group:add_group' %}">
-    {% csrf_token %}
-    {{ add_group_form.as_p }}
-    {{ tag_form.as_p }}
-    <button type="submit">Dodaj grupe!</button>
-</form>
-</body>
-</html>
+{% extends 'base_logged.html' %}
+{% block title %}Utwórz nową grupę{% endblock %}
+{% block title2 %}Dodaj grupę{% endblock %}
+{% load widget_tweaks %}
+{% block body %}
+	<main class="mdl-layout__content group-content">
+		<div class="page-content">
+			<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp add-group-section">
+				<div class="mdl-card mdl-cell mdl-cell--12-col">
+					<form method="post" action="{% url 'group:add_group' %}" id="form-id">
+						{% csrf_token %}
+						{{ group_form.errors }}
+						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+							<h4 class="mdl-cell mdl-cell--12-col">Dodaj grupę</h4>
+							<div id="group_name-container">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									{{ add_group_form.group_name|add_class:"mdl-textfield__input" }}
+									<label class="mdl-textfield__label" for="{{ add_group_form.group_name.id_for_label }}">Nazwa grupy...</label>
+								</div>
+								<span>Maksymalna długość 150 znaków. Dozwolone są litery, cyfry, spacje i @/./+/-/_.Spacje nie mogą być na początku u na końcu nazwy, oraz nie może być więcej niż jedna pod rząd</span>
+							</div>
+							<div class="mdl-textfield mdl-js-textfield group-description-container">
+								{{ add_group_form.group_description|add_class:"mdl-textfield__input" }}
+								<label class="mdl-textfield__label" for="{{ add_group_form.group_description.id_for_label }}">Opis grupy...</label>
+							</div>
+							<div class="mdl-selectfield mdl-js-selectfield selectfield">
+								{{ add_group_form.group_status|add_class:"mdl-selectfield__select" }}
+								<label class="mdl-selectfield__label" for="{{ add_group_form.group_status.id_for_label }}">Rodzaj grupy</label>
+							</div>
+							<h4 class="mdl-cell mdl-cell--12-col">Tagi</h4>
+							<div id="tags_input-container">
+								{% for tag in tag_form %}
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							 			{{ tag|add_class:"mdl-textfield__input" }}
+							 			<label class="mdl-textfield__label" for="{{ tag.id_for_label }}">Dodaj tag...</label>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="mdl-card__actions mdl-card--border">
+							<button type="submit" class="mdl-button">Gotowe!</button>
+						</div>
+					</form>
+				</div>
+			</section>
+		</div>
+	</main>
+	<script>
+		//https://github.com/google/material-design-lite/issues/1502
+		let requiredComponents = document.querySelectorAll("[required]");
+		requiredComponents.forEach(function(e){
+			e.removeAttribute('required');
+		})
+		// when submit button click, add required attribute back
+		document.getElementById("submit-button").addEventListener("click", function(){
+			requiredComponents.forEach(function(e){
+				e.setAttribute('required', true)
+			})
+		});
+		// also when form submit event
+		document.getElementById("form-id").addEventListener("submit", function(){
+			requiredComponents.forEach(function(e){
+				e.setAttribute('required', true)
+			})
+		});
+	</script>
+{% endblock %}

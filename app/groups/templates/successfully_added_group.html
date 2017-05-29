@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>grupa dodana!</title>
-</head>
-<body>
-HURA GRUPA DODANA!
-</body>
-</html>
+{% extends 'base_logged.html' %}
+{% block title %}Dodano grupę{% endblock %}
+{% block title2 %}Dodano grupę{% endblock %}
+
+{% block body %}
+<main class="mdl-layout__content">
+	<div class="page-content center-cards">
+		<div class="mdl-card mdl-shadow--8dp group-card" style="margin:20px auto;">
+			<div class="mdl-card__title">
+				<h2 class="mdl-card__title-text">Udało się dodać grupę</h2>
+			</div>
+			<div class="mdl-card__supporting-text">
+				Grupa zostałą dodana. Możesz dodawać w niej pytania.
+			</div>
+			<div class="mdl-card__actions mdl-card--border">
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href='{% url 'group:index' %}'>
+					Wyświetl listę grup
+				</a>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}
