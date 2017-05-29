@@ -55,9 +55,9 @@ class PredefinedQuiz(models.Model):
         on_delete=models.CASCADE
     )
 
-    quiz_author = models.ForeignKey(
-        'users.User',
-        on_delete=models.CASCADE
+    quiz_author = models.CharField(
+        _('Autor quizu'),
+        max_length=64
     )
 
     quiz_time_limit = models.IntegerField(
