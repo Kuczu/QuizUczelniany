@@ -18,5 +18,4 @@ class QuestionForm(forms.ModelForm):
         fields = [
             'question_content',
             'question_explanation',
-            'question_author',
         ]
