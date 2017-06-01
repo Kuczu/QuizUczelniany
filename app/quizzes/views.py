@@ -35,7 +35,7 @@ def add_quiz(request, group_id=None):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.group_id = group
-        instance.quiz_author = user.username
+        instance.quiz_author = user
         instance.save()
         return redirect('group:go_to_group', group_id)
 

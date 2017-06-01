@@ -18,9 +18,9 @@ class Question(models.Model):
 
     question_approved = models.BooleanField()
 
-    question_author = models.CharField(
-        _('Autor pytania'),
-        max_length=128
+    quiz_author = models.ForeignKey(
+        'users.User',
+        on_delete=models.CASCADE
     )
 
     date_created = models.DateTimeField(
@@ -55,9 +55,9 @@ class PredefinedQuiz(models.Model):
         on_delete=models.CASCADE
     )
 
-    quiz_author = models.CharField(
-        _('Autor quizu'),
-        max_length=64
+    quiz_author = models.ForeignKey(
+        'users.User',
+        on_delete=models.CASCADE
     )
 
     quiz_time_limit = models.IntegerField(
