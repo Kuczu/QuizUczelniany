@@ -11,10 +11,12 @@
 						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
 							<h4 class="mdl-cell mdl-cell--12-col">Baza pytań</h4>
 							<h6>
-								Aktualnie w bazie znajduje się {{ all_quizzes|length }} pytań.
-								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick='window.location="./add-question.html"'>
-									Dodaj pytanie
-								</button>
+								Aktualnie w bazie znajduje się {{ questions|length }} pytań.
+                                <form method="POST" action="{% url 'quizzes:add_global_question' group_id %}">
+                                    {% csrf_token %}
+                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit">Dodaj Pytanie</button>
+                                </form>
+
 							</h6>
 							<div class="mdl-card__actions mdl-card--border">
 								<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="./show-questions.html">

@@ -9,14 +9,12 @@ class Question(models.Model):
 
     question_explanation = models.TextField(_('Wytlumaczenie'))
 
-    quiz_id = models.ForeignKey(
-        'PredefinedQuiz',
+    group_id = models.ForeignKey(
+        'groups.Group',
         on_delete=models.CASCADE
     )
 
-    question_type = models.BooleanField()
-
-    question_approved = models.BooleanField()
+    question_approved = models.BooleanField(default=False)
 
     quiz_author = models.ForeignKey(
         'users.User',
@@ -35,7 +33,7 @@ class Answer(models.Model):
         max_length=256
     )
 
-    is_correct = models.BooleanField()
+    is_correct = models.BooleanField(_('Czy poprawna'))
 
 
 class PredefinedQuiz(models.Model):
@@ -82,3 +80,17 @@ class QuestionAnswer(models.Model):
 
     class Meta:
         unique_together = ('question', 'answer')
+
+
+class PredefinedQuizQuestion(models.Model):
+    quiz = models.ForeignKey(
+        'PredefinedQuiz',
+        on_delete=models.CASCADE
+    )
+    question = models.ForeignKey(
+        'Question',
+        on_delete=models.CASCADE
+    )
+
+    class Meta:
+        unique_together = ('quiz', 'question')

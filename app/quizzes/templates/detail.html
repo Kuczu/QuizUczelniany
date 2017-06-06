@@ -9,17 +9,18 @@
 
 {% if questions %}
     {% for q in questions %}
-    <li>
-        <a href=''>{{  q.question_content }} </a>
-        {{ q.quiz_author.username }}
-    </li>
+     <ul>
+        <li>
+        {{  q.question_content }}
+        </li>
+     </ul>
     {% endfor %}
 {% else %}
     <h3>Brak Pytan! Dodaj jakieś :)</h3>
 {% endif %}
-<form method="POST" action="{% url 'quizzes:add_quiz' group_id %}">
+<form method="POST" action="{% url 'quizzes:add_question' group_id quiz_id %}">
     {% csrf_token %}
-    <button type="submit">Dodaj quiz!</button>
+    <button type="submit">Dodaj pytania!</button>
 </form>
 
 <a href="{% url 'group:go_to_group'  group_id %}"> Powrót </a>

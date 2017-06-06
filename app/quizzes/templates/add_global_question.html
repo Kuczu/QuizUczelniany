@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj pytanie</title>
+</head>
+<body>
+
+
+<form method="post" action="{% url 'quizzes:add_global_question' group_id %}">
+    {% csrf_token %}
+    {{ question_form }}
+    {{ answer_form }}
+    <button type="submit">Dodaj nowe pytanie!</button>
+</form>
+
+</body>
+</html>
