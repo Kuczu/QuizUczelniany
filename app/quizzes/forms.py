@@ -1,7 +1,8 @@
 from django import forms
 from .models import PredefinedQuiz, Question, Answer
 from django.utils.translation import ugettext_lazy as _
-
+from django.db import transaction
+import collections
 
 class PredefinedQuizForm(forms.ModelForm):
     class Meta:
@@ -37,13 +38,13 @@ class AnswerForm(forms.Form):
     def save(self):
         answer_list = []
         tuple_list = []
-        items = self.cleaned_data.items()
-
+        items = collections.OrderedDict(sorted(self.cleaned_data.items())).items()
+ 
         for key, value in items:
             tuple_tmp = (key, value)
             tuple_list.append(tuple_tmp)
-
-        for i in range(0, len(tuple_list), 2):
+ 
+        with transaction.atomic():
+            for i in range(0, len(tuple_list), 2):
                 answer_list.append(Answer.objects.create(answer=tuple_list[i][1], is_correct=tuple_list[i+1][1]))
-
         return answer_list

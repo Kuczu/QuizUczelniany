@@ -11,7 +11,25 @@
 						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
 							<h4 class="mdl-cell mdl-cell--12-col">Baza pytań</h4>
 							<h6>
-								Aktualnie w bazie znajduje się {{ questions|length }} pytań.
+								Aktualnie w bazie <span id="enter-quantity"></span>
+								<script>
+									var count = {{ questions|length }};
+									var text = "znajduj";
+									if (count === 0 || count === 1 || (count > 4 && count < 22) || (count > 24 && (count % 10 === 5 || count % 10 === 6 || count % 10 === 7 || count % 10 === 8 || count % 10 === 9 || count % 10 === 0))) {
+										text += "e";
+									} else {
+										text += "ą";
+									}
+									text += " się " + count + " pyta";
+									if (count === 1) {
+										text += "nie";
+									} else if ((count > 4 && count < 22) || (count > 24 && (count % 10 === 5 || count % 10 === 6 || count % 10 === 7 || count % 10 === 8 || count % 10 === 9 || count % 10 === 0))) {
+										text += "ń"
+									} else {
+										text += "nia";
+									}
+									document.getElementById("enter-quantity").innerHTML = text + ".";
+								</script>
                                 <form method="POST" action="{% url 'quizzes:add_global_question' group_id %}">
                                     {% csrf_token %}
                                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit">Dodaj Pytanie</button>
