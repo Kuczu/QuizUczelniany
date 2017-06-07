@@ -1,7 +1,7 @@
 from django import forms
-from .models import PredefinedQuiz, Question, Answer
+from .models import PredefinedQuiz, Question, Answer, QuestionAnswer
 from django.utils.translation import ugettext_lazy as _
-
+from django.db import transaction
 
 class PredefinedQuizForm(forms.ModelForm):
     class Meta:
@@ -38,12 +38,18 @@ class AnswerForm(forms.Form):
         answer_list = []
         tuple_list = []
         items = self.cleaned_data.items()
-
+        print(items)
         for key, value in items:
             tuple_tmp = (key, value)
             tuple_list.append(tuple_tmp)
 
-        for i in range(0, len(tuple_list), 2):
-                answer_list.append(Answer.objects.create(answer=tuple_list[i][1], is_correct=tuple_list[i+1][1]))
+        tuple_list = sorted(tuple_list, key=lambda tup: tup[0].split('_')[-1])
 
+        with transaction.atomic():
+            for i in range(0, len(tuple_list), 2):
+                # sprawdzenie czy nie sa zamienione kolejnosci tresci i odpowiedzi
+                if tuple_list[i][0][0] is 'a':
+                    answer_list.append(Answer.objects.create(answer=tuple_list[i][1], is_correct=tuple_list[i+1][1]))
+                else:
+                    answer_list.append(Answer.objects.create(answer=tuple_list[i+1][1], is_correct=tuple_list[i][1]))
         return answer_list
