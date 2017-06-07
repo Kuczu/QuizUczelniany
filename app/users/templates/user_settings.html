@@ -1,31 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>settings</title>
-</head>
-<body>
-    '{{ request.user.email }}' {{ request.user.username }}
-
-    <br>
-    {{ context }}
-    <br>
-
-    <h1>Zmień hasło się!</h1>
-    <form method="POST" action="{% url 'user:user_change_password' %}">
-        {% csrf_token %}
-        {{ password_form.as_p }}
-        <button type="submit">Zmień hasło!</button>
-    </form>
-
-    <br>
-    <br>
-
-    <h1>Zmień email!</h1>
-    <form method="POST" action="{% url 'user:user_change_mail' %}">
-        {% csrf_token %}
-        {{ email_form.as_p }}
-        <button type="submit">Zmień email!</button>
-    </form>
-</body>
-</html>
+{% extends 'base_logged.html' %}
+{% block title %}Ustawienia{% endblock %}
+{% block title2 %}Ustawienia{% endblock %}
+{% load widget_tweaks %}
+{% block body %}
+		<main class="mdl-layout__content group-content">
+			<section class="mdl-layout__tab-panel is-active" id="overwiev">
+			<div class="page-content">
+				<!--{{ request.user.email }}' {{ request.user.username }}-->
+				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--12-col">
+						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+							<h4 class="mdl-cell mdl-cell--12-col">Zmień hasło</h4>
+							<h6>
+								<form method="POST" action="{% url 'user:user_change_password' %}">
+									{% csrf_token %}
+									{{ password_form.errors }}
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										{{ password_form.current_password|add_class:"mdl-textfield__input" }}
+										<label class="mdl-textfield__label" for="{{ password_form.current_password.id_for_label }}">{{ password_form.current_password.label }}</label>
+									</div></br>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										{{ password_form.password1|add_class:"mdl-textfield__input" }}
+										<label class="mdl-textfield__label" for="{{ password_form.password1.id_for_label }}">{{ password_form.password1.label }}</label>
+									</div></br>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										{{ password_form.password2|add_class:"mdl-textfield__input" }}
+										<label class="mdl-textfield__label" for="{{ password_form.password2.id_for_label }}">{{ password_form.password2.label }}</label>
+									</div>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-button" type="submit">Zmień</button>
+								</form>
+							</h6>
+						</div>
+					</div>
+				</section>
+				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--12-col">
+						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+							<h4 class="mdl-cell mdl-cell--12-col">Zmień email</h4>
+							<h6>
+								<form method="POST" action="{% url 'user:user_change_mail' %}">
+									{% csrf_token %}
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										{{ email_form.new_email|add_class:"mdl-textfield__input" }}
+										<label class="mdl-textfield__label" for="{{ email_form.new_email.id_for_label }}">{{ email_form.new_email.label }}</label>
+									</div>
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-button" type="submit">Zmień</button>
+								</form>
+							</h6>
+						</div>
+					</div>
+				</section>
+			</div>
+			</section>
+		</main>
+		<script>
+			//https://github.com/google/material-design-lite/issues/1502
+			let requiredComponents = document.querySelectorAll("[required]");
+			requiredComponents.forEach(function(e){
+				e.removeAttribute('required');
+			})
+			// when submit button click, add required attribute back
+			document.getElementsByClassName("submit-button").addEventListener("click", function(){
+				requiredComponents.forEach(function(e){
+					e.setAttribute('required', true)
+				})
+			});
+			// also when form submit event
+			document.getElementById("form-id").addEventListener("submit", function(){
+				requiredComponents.forEach(function(e){
+					e.setAttribute('required', true)
+				})
+			});
+		</script>
+{% endblock %}

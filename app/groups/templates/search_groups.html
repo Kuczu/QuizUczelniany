@@ -1,33 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Search Groups!</title>
-</head>
-<body>
-<form method="GET" action="{% url 'group:search_groups' %}">
-    <input type="text" name="q">
-    <button type="submit">Szukaj!</button>
-</form>
-<br>
-TAGI:
-<br>
-{% for tag in tags %}
-    <b>{{ tag.tag_name }} </b>  ||
-{% endfor %}
-<br>
-<h1>Lista grup:</h1>
-<br>
-{% for key, group in groups_with_tags.items %}
-    Nazwa: {{ group.Group.group_name }} {{ group.Group.group_status }}
-    <br>
-    Opis: {{ group.Group.group_description }}
-    <br>
-    {% for tag in group.Tags %}
-        tag: {{ tag.tag_name }}
-    <br>
-    {% endfor %}
-    <br>
-{% endfor %}
-</body>
-</html>
+{% extends 'base_logged.html' %}
+{% block title %}Szukaj grup{% endblock %}
+{% block title2 %}Szukaj grup{% endblock %}
+{% load widget_tweaks %}
+{% block body %}
+		<main class="mdl-layout__content group-content">
+			<section class="mdl-layout__tab-panel is-active" id="overwiev">
+			<div class="page-content">
+				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--12-col">
+						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+							<h4 class="mdl-cell mdl-cell--12-col">Szukaj</h4>
+							<form method="GET" action="{% url 'group:search_groups' %}">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="text" name="q">
+									<label class="mdl-textfield__label" for="{{ register_form.username.id_for_label }}">Szukaj...</label>
+								</div>
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">Szukaj!</button>
+							</form>
+						</div>
+					</div>
+				</section>
+				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--12-col">
+						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+							<h4 class="mdl-cell mdl-cell--12-col">Tagi</h4>
+							{% for tag in tags %}
+							<span class="mdl-chip">
+								<span class="mdl-chip__text">{{ tag.tag_name }}</span>
+							</span>
+							{% endfor %}
+						</div>
+					</div>
+				</section>
+				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--12-col">
+						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+							<h4 class="mdl-cell mdl-cell--12-col">Grupy</h4>
+							{% for key, group in groups_with_tags.items %}
+								<div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone your-group">
+									{% if not user_group_details.is_in_group %}
+										<div class="section__circle-container__circle mdl-color--green">
+									{% else %}
+										<div class="section__circle-container__circle mdl-color--red">
+									{% endif %}
+										<i class="material-icons">group</i>
+									</div>
+								</div>
+								<div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+									<h5>{{ group.Group.group_name }}
+										<span class="group-type">
+											{% if group.Group.group_status %}
+												(zamknięta)
+											{% else %}
+												(otwarta)
+											{% endif %}
+										</span>
+									</h5>
+									<div class="tag-container">
+										{% for tag in group.Tags %}
+											<span class="mdl-chip"><span class="mdl-chip__text">{{ tag.tag_name }}</span></span>
+										{% endfor %}
+									</div>
+									{{ group.Group.group_description }} <a href="{% url 'group:go_to_group' group.Group.id %}">Przejdź do grupy</a>.
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</section>
+			</div>
+			</section>
+		</main>
+{% endblock %}
