@@ -1,3 +1,66 @@
+{% extends 'base_logged.html' %}
+{% block title %}Dołącz do grupy{% endblock %}
+{% block title2 %}Dołącz do grupy{% endblock %}
+{% load widget_tweaks %}
+{% block body %}
+		<main class="mdl-layout__content group-content">
+			<section class="mdl-layout__tab-panel is-active" id="overwiev">
+			<div class="page-content">
+				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--12-col">
+						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+							<h4 class="mdl-cell mdl-cell--12-col">Nie jesteś członkiem grupy</h4>
+							<div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone your-group">
+								{% if not user_group_details.is_in_group %}
+									<div class="section__circle-container__circle mdl-color--green">
+								{% else %}
+									<div class="section__circle-container__circle mdl-color--red">
+								{% endif %}
+									<i class="material-icons">group</i>
+								</div>
+							</div>
+							<div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+								<h5>
+									{{ group_with_tags.Group.group_name }}
+									<span class="group-type">
+									{% if group_with_tags.Group.group_status %}
+										(zamknięta)
+									{% else %}
+										(otwarta)
+									{% endif %}
+									</span>
+								</h5>
+								<div class="tag-container">
+									{% for tag in group_with_tags.Tags %}
+										<span class="mdl-chip"><span class="mdl-chip__text">{{ tag.tag_name }}</span></span>
+									{% endfor %}
+								</div>
+								{{ group.Group.group_description }}.
+							</div>
+						</div>
+						<div class="mdl-card__actions mdl-card--border">
+							{% if not user_group_details.is_in_group %}
+								<form method="POST" action="{% url 'group:become_member' group_with_tags.Group.id %}">
+									{% csrf_token %}
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit">
+										Dołącz do grupy
+									</button>
+								</form>
+							{% else %}
+								{% if group_with_tags.Group.group_status == 1 and not user_group_details.is_member %}
+									<button class="mdl-button mdl-js-button mdl-button--raised" disabled>
+										Nie zostałeś dodany przez administratora
+									</button>
+								{% endif %}
+							{% endif %}
+						</div>
+					</div>
+				</section>
+			</div>
+			</section>
+		</main>
+{% endblock %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

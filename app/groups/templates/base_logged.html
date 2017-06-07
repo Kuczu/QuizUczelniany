@@ -28,7 +28,9 @@
 						<i class="material-icons">search</i>
         			</label>
 					<div class="mdl-textfield__expandable-holder">
-						<input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp">
+						<form method="GET" action="{% url 'group:search_groups' %}">
+							<input id="fixed-header-drawer-exp" class="mdl-textfield__input" type="text" name="q">
+						</form>
 					</div>
 				</div>
 			</div>
@@ -44,6 +46,7 @@
 			<nav class="mdl-navigation">
 				<a class="mdl-navigation__link" href="{% url 'group:index' %}">Panel użytkownika</a>
 				<a class="mdl-navigation__link" href="{% url 'group:add_group' %}">Dodaj grupę</a>
+				<a class="mdl-navigation__link" href="{% url 'group:search_groups' %}">Szukaj grupy</a>
 				<a class="mdl-navigation__link" href="{% url 'user:user_settings' %}">Ustawienia</a>
 				<hr>
 				<a class="mdl-navigation__link" href="{% url 'user:logout' %}">Wyloguj</a>

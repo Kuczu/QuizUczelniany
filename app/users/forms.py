@@ -57,9 +57,9 @@ class LoginForm(forms.Form):
 
 
 class ChangeUserPasswordForm(forms.Form):
-    password1 = forms.Field(label='New Password', widget=forms.PasswordInput)
-    password2 = forms.Field(label='Password confirmation', widget=forms.PasswordInput)
-    current_password = forms.Field(label='Old Password', widget=forms.PasswordInput)
+    password1 = forms.Field(label='Nowe hasło', widget=forms.PasswordInput)
+    password2 = forms.Field(label='Powtórz hasło', widget=forms.PasswordInput)
+    current_password = forms.Field(label='Stare hasło', widget=forms.PasswordInput)
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -79,7 +79,7 @@ class ChangeUserPasswordForm(forms.Form):
 
 
 class ChangeUserEmail(forms.Form):
-    new_email = forms.EmailField(label='New Email')
+    new_email = forms.EmailField(label='Nowy Email')
 
     def clean(self):
         cleaned_data = super().clean()
