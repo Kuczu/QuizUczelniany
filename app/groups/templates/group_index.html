@@ -30,7 +30,7 @@
 									}
 									document.getElementById("enter-quantity").innerHTML = text + ".";
 								</script>
-                                <form method="POST" action="{% url 'quizzes:add_global_question' group_id %}">
+                                <form method="POST" action="{% url 'quizzes:add_question' group_id %}">
                                     {% csrf_token %}
                                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit">Dodaj Pytanie</button>
                                 </form>

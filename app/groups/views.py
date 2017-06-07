@@ -66,7 +66,7 @@ def enter_into_group(request, group_id):
     quizzes = PredefinedQuiz.objects.all().filter(group_id=group_id)
 
     questions = Question.objects.all().filter(group_id=group_id).exclude(
-        id__in=[quiz.id for quiz in PredefinedQuizQuestion.objects.all()]
+        id__in=PredefinedQuizQuestion.objects.all().values('question')
     )
 
     if not user_group_details['is_in_group'] or not user_group_details['is_member']:

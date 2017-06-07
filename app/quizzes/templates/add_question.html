@@ -1,3 +1,110 @@
+{% extends 'base_logged.html' %}
+{% block title %}Dodaj pytanie{% endblock %}
+{% block title2 %}Dodaj pytanie{% endblock %}
+{% load widget_tweaks %}
+{% block body %}
+<main class="mdl-layout__content group-content">
+	<div class="page-content">
+		<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp settings-tags-section">
+			<div class="mdl-card mdl-cell mdl-cell--12-col ">
+				<form method="post" action="{% if id %}{% url 'quizzes:add_question' group_id id%}{% else %}{% url 'quizzes:add_question' group_id %}{% endif %}" id="form-id">
+					{% csrf_token %}
+					<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing add-question-page">
+						<h5 class="mdl-cell mdl-cell--12-col">Dodajesz pytanie do grupy <strong>Nazwa grupy</strong></h5>
+						<div class="mdl-cell mdl-cell--1-col" style="position:relative;">
+							<span class="switch-label">Czy poprawna</span>
+						</div>
+						<div class="mdl-cell mdl-cell--11-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							{{ question_form.question_content|add_class:"mdl-textfield__input"|attr:"rows:3" }}
+							<label class="mdl-textfield__label" for="{{ question_form.question_content.id_for_label }}">Treść pytania</label>
+						</div>
+						<div class="mdl-cell mdl-cell--1-col">
+							<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="{{ answer_form.is_correct_0.id_for_label }}">
+								<!--<input type="checkbox" id="correct-answer-b" class="mdl-switch__input" checked/>-->
+								{{ answer_form.is_correct_0|add_class:"mdl-switch__input" }}
+							</label>
+						</div>
+						<div class="mdl-cell mdl-cell--11-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							<!--<textarea class="mdl-textfield__input" type="text" rows="2" id="answer-a"></textarea>-->
+							{{ answer_form.answer_field_0|add_class:"mdl-textfield__input req" }}
+							<label class="mdl-textfield__label" for="{{ answer_form.answer_field_0.id_for_label }}">Odpowiedź a)</label>
+						</div>
+						<div class="mdl-cell mdl-cell--1-col">
+							<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="{{ answer_form.is_correct_1.id_for_label }}">
+								{{ answer_form.is_correct_1|add_class:"mdl-switch__input" }}
+							</label>
+						</div>
+						<div class="mdl-cell mdl-cell--11-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							{{ answer_form.answer_field_1|add_class:"mdl-textfield__input req" }}
+							<label class="mdl-textfield__label" for="answer-a">Odpowiedź b)</label>
+						</div>
+						<div class="mdl-cell mdl-cell--1-col">
+							<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="{{ answer_form.is_correct_2.id_for_label }}">
+								{{ answer_form.is_correct_2|add_class:"mdl-switch__input" }}
+							</label>
+						</div>
+						<div class="mdl-cell mdl-cell--11-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							{{ answer_form.answer_field_2|add_class:"mdl-textfield__input req" }}
+							<label class="mdl-textfield__label" for="answer-a">Odpowiedź c)</label>
+						</div>
+						<div class="mdl-cell mdl-cell--1-col">
+							<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="{{ answer_form.is_correct_3.id_for_label }}">
+								{{ answer_form.is_correct_3|add_class:"mdl-switch__input" }}
+							</label>
+						</div>
+						<div class="mdl-cell mdl-cell--11-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							{{ answer_form.answer_field_3|add_class:"mdl-textfield__input req" }}
+							<label class="mdl-textfield__label" for="answer-a">Odpowiedź d)</label>
+						</div>
+						<div class="mdl-cell mdl-cell--1-col">
+							<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="{{ answer_form.is_correct_4.id_for_label }}">
+								{{ answer_form.is_correct_4|add_class:"mdl-switch__input" }}
+							</label>
+						</div>
+						<div class="mdl-cell mdl-cell--11-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							{{ answer_form.answer_field_4|add_class:"mdl-textfield__input req" }}
+							<label class="mdl-textfield__label" for="answer-a">Odpowiedź e)</label>
+						</div>
+						<hr>
+						<div class="mdl-cell mdl-cell--2-col">
+							<i class="material-icons mdl-list__item-avatar">info</i>
+						</div>
+						<div class="mdl-cell mdl-cell--10-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							{{ question_form.question_explanation|add_class:"mdl-textfield__input req"|attr:"rows:3" }}
+							<label class="mdl-textfield__label" for="{{ question_form.question_explanation.id_for_label }}">Wyjaśnienie</label>
+						</div>
+					</div>
+					<div class="mdl-card__actions mdl-card--border">
+						<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit" id="submit-button">
+							Dodaj pytanie
+						</button>
+					</div>
+				</form>
+			</div>
+		</section>
+	</div>
+</main>
+<script>
+	//https://github.com/google/material-design-lite/issues/1502
+	let requiredComponents = document.querySelectorAll("[required]");
+	requiredComponents.forEach(function(e){
+		e.removeAttribute('required');
+	})
+	// when submit button click, add required attribute back
+	document.getElementById("submit-button").addEventListener("click", function(){
+		requiredComponents.forEach(function(e){
+			e.setAttribute('required', true)
+		})
+	});
+	// also when form submit event
+	document.getElementById("form-id").addEventListener("submit", function(){
+		requiredComponents.forEach(function(e){
+			e.setAttribute('required', true)
+		})
+	});
+</script> 
+{% endblock %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +114,7 @@
 <body>
 
 
-<form method="post" action="{% url 'quizzes:add_question' group_id quiz_id %}">
+<form method="post" action="{% if id %}{% url 'quizzes:add_question' group_id id%}{% else %}{% url 'quizzes:add_question' group_id %}{% endif %}">
     {% csrf_token %}
     {{ question_form }}
     {{ answer_form }}

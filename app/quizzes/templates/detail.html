@@ -23,6 +23,11 @@
     <button type="submit">Dodaj pytania!</button>
 </form>
 
+<form action="{% url 'quizzes:solve_quiz' group_id quiz_id %}">
+    {% csrf_token %}
+    <button type="submit">Rozwiaz Quiz!</button>
+</form>
+
 <a href="{% url 'group:go_to_group'  group_id %}"> Powrót </a>
 
 </body>

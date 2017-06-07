@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form method="post" action="{% if quiz_id %}{% url 'quizzes:solve_quiz' group_id quiz_id%}{% else %}{% url 'quizzes:solve_quiz' group_id %}{% endif %}">
+        {% csrf_token %}
+        {% for i in form %}
+           {{ i.label }}  {{ i }} pkt = {{ i.help_text|safe }} </br>
+        {% endfor %}
+        <button type="submit">Ocen</button>
+    </form>
+</body>
+</html>
