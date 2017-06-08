@@ -79,14 +79,17 @@ class SolveQuizForm(forms.Form):
             self.answer_pattern.append(tmp_list)
 
     def rate_quiz(self):
-        tuple_list = []
         result_list = []
-        items = self.cleaned_data.items()
-        for key, value in items:
-            tuple_tmp = (key, value)
-            tuple_list.append(tuple_tmp)
+        raw_list_of_answers = []
+        number_of_fields = len(self.cleaned_data)
+        copy_of_answer_list = self.cleaned_data.copy()
 
-        for i in tuple_list:
+        for i in range(0, number_of_fields):
+            raw_list_of_answers.append(copy_of_answer_list.popitem())
+
+        correct_order_list = raw_list_of_answers[::-1]
+
+        for i in correct_order_list:
             if not result_list:
                 result_list.append([i])
             elif 'content' in i[0]:

@@ -81,7 +81,6 @@ def add_question(request, group_id=None, id=None):
     return render(request, 'add_question.html', context)
 
 
-
 def solve_quiz(request, group_id=None, id=None):
     question_list = []
     if id:
@@ -99,7 +98,6 @@ def solve_quiz(request, group_id=None, id=None):
         'quiz_id': id,
     }
     if form.is_valid():
-        print('form is valid')
         # quiz_result = [[[question,answer,answer...], [question2,answer,..]], [question, 1,0,-1,1,1], [question2,...]]]
         # quiz_result[0] is used to generate form with user answers, [1] to get points for certain answer
         quiz_result = form.rate_quiz()
