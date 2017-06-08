@@ -1,3 +1,48 @@
+{% extends 'base_logged.html' %}
+{% block title %}Grupa{% endblock %}
+{% block title2 %}Grupa{% endblock %}
+{% load widget_tweaks %}
+{% block body %}
+	<div id="real-form">
+		<form method="post" action="{% if quiz_id %} {%url 'quizzes:solve_quiz' group_id quiz_id%} {% else %} {% url 'quizzes:solve_quiz' group_id%}{% endif %}">
+        	<div id="csrf">{% csrf_token %}</div>
+        <button type="submit">Ocen</button>
+		</form>
+	</div>
+		<div id="realQestions">
+			{% for i in form %}
+           		<span class="text-is-here">{{ i.label }}</span>  {{ i }} </br>
+        	{% endfor %}
+		</div>
+		<main class="mdl-layout__content">
+			<div class="page-content center-cards">
+				<form id="here-questions">
+				</form>
+			</div>
+		</main>
+	<script>
+		parseQuestions();
+	</script>
+{% endblock %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form method="post" action="{% if quiz_id %} {%url 'quizzes:solve_quiz' group_id quiz_id%} {% else %} {% url 'quizzes:solve_quiz' group_id%}{% endif %}">
+        {% csrf_token %}
+        {% for i in form %}
+           {{ i.label }}  {{ i }} </br>
+        {% endfor %}
+        <button type="submit">Ocen</button>
+    </form>
+</body>
+</html>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

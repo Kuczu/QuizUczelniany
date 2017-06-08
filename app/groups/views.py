@@ -120,9 +120,14 @@ def group_admin(request, group_id):  # TODO questions and quizzes
 
     group_members = get_group_member(group_id)
     
+    if user_group_details['is_member']:
+        is_group_admin = True #TODO check if really is (not necessary here but would be nice :-) )
+	
     context = {'group_with_tags': group_with_tags,
                'user_group_details': user_group_details,
-               'group_members': group_members}
+               'group_members': group_members,
+			   'is_admin': is_group_admin,
+			   'group_id': group_id}
 
     return render(request, "group_admin_panel.html", context=context)
 

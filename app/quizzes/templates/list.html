@@ -10,7 +10,7 @@
 
 {% if all_quizzes %}
     {% for PreDefinedQuiz in all_quizzes %}
-    <li><a href='{% url 'quizzes:detail' id=PreDefinedQuiz.id group_id=group_id %}'>{{  PreDefinedQuiz.quiz_name }}</a></li>
+    <li><a href="{% url 'quizzes:detail' id=PreDefinedQuiz.id group_id=group_id %}">{{  PreDefinedQuiz.quiz_name }}</a></li>
     {% endfor %}
 {% else %}
     <h3>Brak Predefiniowanych Quizów! Dodaj jakiś :)</h3>

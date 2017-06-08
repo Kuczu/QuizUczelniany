@@ -1,4 +1,48 @@
-<!DOCTYPE html>
+{% extends 'base_logged.html' %}
+{% block title %}Quiz{% endblock %}
+{% block title2 %}Quiz{% endblock %}
+{% load widget_tweaks %}
+{% block body %}
+	<main class="mdl-layout__content group-content">
+			<section class="mdl-layout__tab-panel is-active" id="overwiev">
+			<div class="page-content">
+				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--12-col">
+						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+							<h4 class="mdl-cell mdl-cell--12-col">Pytania:</h4>
+							{% if questions %}
+								<ul class="mdl-list">
+									{% for q in questions %}
+									<li class="mdl-list__item">
+										<span class="mdl-list__item-primary-content">
+											<i class="material-icons mdl-list__item-icon">question_answer</i>
+											{{  q.question_content }}
+										</span>
+									</li>
+									{% endfor %}
+								</ul>
+							{% else %}
+								<h3>Brak Pytan! Dodaj jakieś :)</h3>
+							{% endif %}
+						</div>
+						<hr>
+							<div id="twochild">
+								<form method="POST" action="{% url 'quizzes:add_question' group_id quiz_id %}">
+									{% csrf_token %}
+									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Dodaj pytania!</button>
+								</form>
+								<form action="{% url 'quizzes:solve_quiz' group_id quiz_id %}">
+									{% csrf_token %}
+									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Rozwiaz Quiz!</button>
+								</form>
+							</div>
+					</div>
+				</section>
+			</div>
+			</section>
+		</main>
+{% endblock %}
+	<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
