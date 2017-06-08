@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <html lang="pl">
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0">
@@ -12,8 +11,8 @@
 	<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
 	<link rel="stylesheet" href="//qcdn.kubahaha.tk/style.css">
-	<!--<script src="//kubahaha.tk/quiz/questionsWork.js"></script>-->
 	<script src="//qcdn.kubahaha.tk/questionsWork.js"></script>
+	<script src="//qcdn.kubahaha.tk/questionsResults.js"></script>
 	
 	<link rel="stylesheet" href="//qcdn.kubahaha.tk/mdl-selectfield.min.css">
 	<script src="//qcdn.kubahaha.tk/mdl-selectfield.min.js"></script>
@@ -36,12 +35,7 @@
 					</div>
 				</div>
 			</div>
-			{% if is_admin %}
-			<div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-				<a href="{% url 'group:go_to_group' group_id %}" class="mdl-layout__tab is-active">Grupa</a>
-				<a href="{% url 'group:group_administration' group_id %}" class="mdl-layout__tab">Administracja</a>
-			</div>
-			{% endif %}
+			<div style="display:none" id="only-for-admin"></div>
 		</header>
 		<div class="mdl-layout__drawer">
 			<span class="mdl-layout-title">Menu</span>

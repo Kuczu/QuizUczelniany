@@ -42,9 +42,6 @@
     padding: 4px 40px;
     color: inherit;
 }
-.group-content .mdl-card > * {
-    height: auto;
-}
 .group-content .mdl-card__actions a {
     color: #00BCD4;
 }

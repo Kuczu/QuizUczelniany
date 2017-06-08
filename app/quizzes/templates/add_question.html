@@ -10,7 +10,7 @@
 				<form method="post" action="{% if quiz_id %}{% url 'quizzes:add_question' group_id quiz_id%}{% else %}{% url 'quizzes:add_question' group_id %}{% endif %}" id="form-id">
 					{% csrf_token %}
 					<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing add-question-page">
-						<h5 class="mdl-cell mdl-cell--12-col">Dodajesz pytanie do grupy <strong>Nazwa grupy</strong></h5>
+						<h5 class="mdl-cell mdl-cell--12-col">Dodajesz pytanie do grupy</h5>
 						<div class="mdl-cell mdl-cell--1-col" style="position:relative;">
 							<span class="switch-label">Czy poprawna</span>
 						</div>

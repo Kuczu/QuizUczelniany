@@ -25,7 +25,7 @@ SECRET_KEY = '*idxjc%e!1&2lyc_zs!%t0bf+*ir29+$)*bo83fry4@vz_#b5i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'quiz.kubahaha.tk']
 
 
 # Application definition
@@ -97,11 +97,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'QuizUczelniany',
-        'USER': 'QuizUczelniany',
-        'PASSWORD': '123',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': 'quizapp',
+        'USER': 'quiz',
+        'PASSWORD': '65aSGi5RidnmY9FBr7Bc',
+        'HOST': '185.164.138.19',
+        'PORT': '19910',
     }
 }
 

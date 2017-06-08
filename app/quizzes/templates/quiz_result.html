@@ -1,17 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-    <form method="post" action="{% if quiz_id %}{% url 'quizzes:solve_quiz' group_id quiz_id%}{% else %}{% url 'quizzes:solve_quiz' group_id %}{% endif %}">
-        {% csrf_token %}
-        {% for i in form %}
-           {{ i.label }}  {{ i }} pkt = {{ i.help_text|safe }} </br>
-        {% endfor %}
-        <button type="submit">Ocen</button>
-    </form>
-</body>
-</html>
+{% extends 'base_logged.html' %}
+{% block title %}Grupa{% endblock %}
+{% block title2 %}Grupa{% endblock %}
+{% load widget_tweaks %}
+{% block body %}
+		<form method="post" action="{% if quiz_id %}{% url 'quizzes:solve_quiz' group_id quiz_id%}{% else %}{% url 'quizzes:solve_quiz' group_id %}{% endif %}" id="original-form" style="display:none;">
+        	{% csrf_token %}
+        	{% for i in form %}
+				<text>{{ i.label }}</text>  <checkbox>{{ i }}</checkbox> pkt = <correctness>{{ i.help_text|safe }}</correctness>
+			{% endfor %}
+			<button type="submit">Ocen</button>
+		</form>
+		<main class="mdl-layout__content group-content">
+			<section class="mdl-layout__tab-panel is-active" id="overwiev">
+			<div class="page-content" id="results-here">
+				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--12-col">
+						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing spanspace">
+							<h4 class="mdl-cell mdl-cell--12-col">Podsumowanie odpowiedzi</h4>
+							Twój wynik: <span id="total-points-yours"></span> na <span id="total-points"></span> punktów
+						</div>
+					</div>
+				</section>
+				<script>
+					parseResults();
+				</script>
+			</div>
+			</section>
+		</main>
+{% endblock %}
