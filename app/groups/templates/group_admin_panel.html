@@ -3,6 +3,11 @@
 {% block title2 %}Grupa - admin{% endblock %}
 {% load widget_tweaks %}
 {% block body %}
+		{% if user_group_details.user_status > 0 %}
+			<script>
+				document.getElementById("only-for-admin").style.display = "block";
+			</script>
+		{% endif %}
 		<main class="mdl-layout__content group-content">
 			<section class="mdl-layout__tab-panel is-active" id="settings">
 			<div class="page-content">
