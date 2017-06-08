@@ -10,7 +10,9 @@
 				<h3>Zaloguj się do swojego konta</h3>
 				<form method="POST" action="{% url 'user:login' %}">
 					{% csrf_token %}
-					{{ login_form.errors }}
+					<div id="form-errors" style="display:none">
+						{{ login_form.errors }}
+					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						{{ login_form.login|add_class:"mdl-textfield__input" }}
 						<label class="mdl-textfield__label" for="{{ login_form.login.id_for_label }}">Login...</label>
@@ -53,7 +55,7 @@
 						<label class="mdl-textfield__label" for="{{ register_form.password2.id_for_label }}">Powtórz hasło...</label>
 					</div>
 					<br>
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" id="submit-button">
 					Zarejestruj
 					</button>
 				</form>
@@ -61,6 +63,10 @@
 		</div>
 	</div>
 </main>
+<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+		<div class="mdl-snackbar__text"></div>
+		<button class="mdl-snackbar__action" type="button"></button>
+	</div>
 <script>
 	//https://github.com/google/material-design-lite/issues/1502
 	let requiredComponents = document.querySelectorAll("[required]");
@@ -79,5 +85,15 @@
 			e.setAttribute('required', true)
 		})
 	});
+	function checkErrors() {
+		if (document.getElementById("form-errors").children.length > 0) {
+			var error = document.getElementById("form-errors").children[0].children[0].children[0].children[0].innerText;
+			console.log(error);
+			var snackbarContainer = document.querySelector('#demo-toast-example');
+			var data = {message: error};
+			snackbarContainer.MaterialSnackbar.showSnackbar(data);
+		}
+	}
+	window.setTimeout('checkErrors()', 1000);
 </script>
 {% endblock %}
