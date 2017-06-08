@@ -60,6 +60,7 @@ class SolveQuizForm(forms.Form):
     def __init__(self, *args, **kwargs):
         question_list = kwargs.pop('question_list')
         self.answer_pattern = []
+        self.question_list = []
         super(SolveQuizForm, self).__init__(*args, **kwargs)
         for question in question_list:
             tmp_list = []
@@ -68,6 +69,7 @@ class SolveQuizForm(forms.Form):
                                                required=False, label=question.question_content)
 
             self.fields.update({'content_%s' % question.id: question_content})
+            self.question_list.append(('content_%s' % question.id, ''))
             answers = QuestionAnswer.objects.all().filter(question=question)
             for answer in answers:
                 ans = Answer.objects.get(id=answer.id)
@@ -76,6 +78,7 @@ class SolveQuizForm(forms.Form):
                 # label = tresc pytania
                 is_correct = forms.BooleanField(required=False, label=ans.answer)
                 self.fields.update({'choice_%s' % ans.id: is_correct})
+                self.question_list.append(('choice_%s' % ans.id, ans.is_correct))
             self.answer_pattern.append(tmp_list)
 
     def rate_quiz(self):
@@ -83,13 +86,19 @@ class SolveQuizForm(forms.Form):
         raw_list_of_answers = []
         number_of_fields = len(self.cleaned_data)
         copy_of_answer_list = self.cleaned_data.copy()
-
+        # ulozyc self.cleaned_data tak samo jak question_list () po [0] elemencie tupla
         for i in range(0, number_of_fields):
             raw_list_of_answers.append(copy_of_answer_list.popitem())
 
         correct_order_list = raw_list_of_answers[::-1]
+        tmp_result = []
 
-        for i in correct_order_list:
+        for i in range(0, len(self.question_list)):
+            for j in range(0, len(correct_order_list)):
+                if self.question_list[i][0] == correct_order_list[j][0]:
+                    tmp_result.append(correct_order_list[j])
+
+        for i in tmp_result:
             if not result_list:
                 result_list.append([i])
             elif 'content' in i[0]:
@@ -100,25 +109,8 @@ class SolveQuizForm(forms.Form):
         # result_list = zaznaczone odpowiedzi
         # answer_pattern = wzorcowe odpowiedzi
 
-        points_for_all_questions = []
-        for answers_given, answer_pattern in zip(result_list, self.answer_pattern):
-
-            points = []
-            #points = [nazwa pytania, pkt_za1, pkt_za2...]
-            points.append(answers_given[0][0])
-            for i in range(1, len(answers_given)):
-                #obliczanie punktow
-                if answers_given[i][1]:
-                    if answer_pattern[i][1]:
-                        points.append(1)
-                    else:
-                        points.append(-1)
-                else:
-                    points.append(0)
-            points_for_all_questions.append(points)
-
-        #result_set =[[lista_pytan oraz odpowiedzi], [pytania i ilosc pkt za poszczegolna odpowiedz]]
-        result_set = [result_list, points_for_all_questions]
+        #result_set =[[lista_pytan oraz odpowiedzi], [wzorzec odpowiedzi]]
+        result_set = [result_list, self.answer_pattern]
         return result_set
 
 
@@ -130,17 +122,12 @@ class QuizResultForm(forms.Form):
         quiz_result = kwargs.pop('quiz_result')
         super(QuizResultForm, self).__init__(*args, **kwargs)
 
-        for question, point in zip(quiz_result[0], quiz_result[1]):
-            sum_of_points_for_question = 0
-
-            for i in range(1, len(point)):
-                sum_of_points_for_question = sum_of_points_for_question + point[i]
-
+        for question, answer_pattern in zip(quiz_result[0], quiz_result[1]):
             question_id = question[0][0].split('_')[-1]
             question_object = Question.objects.get(id=question_id)
             question_content = forms.CharField(
                 widget=forms.Textarea(attrs={'disabled': True}), required=False,
-                label=question_object.question_content, help_text=sum_of_points_for_question)
+                label=question_object.question_content, help_text=None)
             self.fields.update({'content_%s' % question_object.id: question_content})
 
             # [(tresc_pytania, ''),(tresc_odpowiedzi,true/false)x5]
@@ -148,5 +135,5 @@ class QuizResultForm(forms.Form):
 
                 tmp_ans = Answer.objects.get(id=question[answer][0].split('_')[-1])
                 answer_form = forms.BooleanField(required=False, label=tmp_ans.answer,
-                                                 initial=question[answer][1], disabled=True, help_text=point[answer])
+                                                 initial=question[answer][1], disabled=True, help_text=answer_pattern[answer][1])
                 self.fields.update({'choice_%s_%s' % (question_id, answer): answer_form})

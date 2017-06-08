@@ -14,7 +14,7 @@ class Question(models.Model):
         on_delete=models.CASCADE
     )
 
-    question_approved = models.BooleanField(default=False)
+    question_approved = models.BooleanField(default=True)
 
     quiz_author = models.ForeignKey(
         'users.User',
