@@ -59,7 +59,7 @@ class PredefinedQuiz(models.Model):
     )
 
     quiz_time_limit = models.IntegerField(
-        _('Czas'),
+        _('Czas (min)'),
         help_text='Czas na wykonanie quizu'
     )
 

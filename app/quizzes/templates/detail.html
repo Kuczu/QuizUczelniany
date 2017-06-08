@@ -22,7 +22,15 @@
 									{% endfor %}
 								</ul>
 							{% else %}
-								<h3>Brak Pytan! Dodaj jakieś :)</h3>
+								<ul class="mdl-list">
+									<li class="mdl-list__item mdl-list__item--two-line">
+										<span class="mdl-list__item-primary-content">
+											<i class="material-icons mdl-list__item-avatar">error_outline</i>
+											<span>Brak pytań</span>
+											<span class="mdl-list__item-sub-title">Dodaj pytanie korzystając z przycisku poniżej</span>
+										</span>
+									</li>
+								</ul>
 							{% endif %}
 						</div>
 						<hr>
@@ -31,10 +39,12 @@
 									{% csrf_token %}
 									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Dodaj pytania!</button>
 								</form>
-								<form action="{% url 'quizzes:solve_quiz' group_id quiz_id %}">
-									{% csrf_token %}
-									<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Rozwiaz Quiz!</button>
-								</form>
+								{% if questions %}
+									<form action="{% url 'quizzes:solve_quiz' group_id quiz_id %}">
+										{% csrf_token %}
+										<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Rozwiaz Quiz!</button>
+									</form>
+								{% endif %}
 							</div>
 					</div>
 				</section>

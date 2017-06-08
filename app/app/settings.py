@@ -25,7 +25,7 @@ SECRET_KEY = '*idxjc%e!1&2lyc_zs!%t0bf+*ir29+$)*bo83fry4@vz_#b5i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['quiz.kubahaha.tk']
 
 
 # Application definition

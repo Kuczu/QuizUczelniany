@@ -1,4 +1,60 @@
-<!DOCTYPE html>
+{% extends 'base_logged.html' %}
+{% block title %}Dodaj quiz{% endblock %}
+{% block title2 %}Dodaj quiz{% endblock %}
+{% load widget_tweaks %}
+{% block body %}
+		<main class="mdl-layout__content group-content">
+			<section class="mdl-layout__tab-panel is-active" id="overwiev">
+			<div class="page-content">
+				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--12-col">
+						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+							<h4 class="mdl-cell mdl-cell--12-col">Nowy quiz</h4>
+							<form method="post" action="{% url 'quizzes:add_quiz' group_id %}" id="form-id">
+								{% csrf_token %}
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									{{ form.quiz_name|add_class:"mdl-textfield__input" }}
+									<label class="mdl-textfield__label" for="{{ form.quiz_name.id_for_label }}">{{ form.quiz_name.label }}</label>
+								</div>
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									{{ form.quiz_description|add_class:"mdl-textfield__input" }}
+									<label class="mdl-textfield__label" for="{{ form.quiz_description.id_for_label }}">{{ form.quiz_description.label }}</label>
+								</div>
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									{{ form.quiz_time_limit|add_class:"mdl-textfield__input"|attr:"pattern:-?[0-9]*(\.[0-9]+)?" }}
+									<label class="mdl-textfield__label" for="{{ form.quiz_time_limit.id_for_label }}">{{ form.quiz_time_limit.label }}</label>
+									<span class="mdl-textfield__error">Wprowadź poprawną liczbę!</span>
+								</div>
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="submit-button" type="submit">Dodaj nowy quiz!</button>
+							</form>
+						</div>
+					</div>
+				</section>
+			</div>
+			</section>
+		</main>
+<script>
+	//https://github.com/google/material-design-lite/issues/1502
+	let requiredComponents = document.querySelectorAll("[required]");
+	requiredComponents.forEach(function(e){
+		e.removeAttribute('required');
+	})
+	// when submit button click, add required attribute back
+	document.getElementById("submit-button").addEventListener("click", function(){
+		requiredComponents.forEach(function(e){
+			e.setAttribute('required', true)
+		})
+	});
+	// also when form submit event
+	document.getElementById("form-id").addEventListener("submit", function(){
+		requiredComponents.forEach(function(e){
+			e.setAttribute('required', true)
+		})
+	});
+</script>
+{% endblock %}
+
+			<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

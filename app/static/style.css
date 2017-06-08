@@ -179,3 +179,8 @@ background: rgba(255,255,255,.7);
     display: inline;
     margin: 0px 15px;
 }
+.button-add {
+    position: absolute;
+    bottom: 29px;
+    right: 37px;
+}

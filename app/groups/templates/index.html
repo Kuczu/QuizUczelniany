@@ -9,6 +9,9 @@
 				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
 					<div class="mdl-card mdl-cell mdl-cell--12-col">
 						<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing" id="real_dashboard">
+							<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored button-add" onclick="window.location.href='{% url 'group:add_group' %}'">
+								<i class="material-icons">add</i>
+							</button>
 							<!--<h4 class="mdl-cell mdl-cell--12-col">Grupy którymi zarządzasz</h4>
 							<div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
 								<div class="section__circle-container__circle mdl-color--green">
@@ -20,7 +23,7 @@
 								Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation
 								nostrud quis <a href="./quiz.html">Zobacz grupę</a>.
 							</div>-->
-							<h4 class="mdl-cell mdl-cell--12-col">Grupy do których należysz</h4>
+							<h4 class="mdl-cell mdl-cell--12-col">Grupy:</h4>
 							{% for key, group in groups_with_tags.items %}
 								<div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone your-group">
 									{% if not user_group_details.is_in_group %}
