@@ -122,12 +122,11 @@ def group_admin(request, group_id):  # TODO questions and quizzes
     
     if user_group_details['is_member']:
         is_group_admin = True #TODO check if really is (not necessary here but would be nice :-) )
-	
-    context = {'group_with_tags': group_with_tags,
+        context = {'group_with_tags': group_with_tags,
                'user_group_details': user_group_details,
                'group_members': group_members,
-			   'is_admin': is_group_admin,
-			   'group_id': group_id}
+                'is_admin': is_group_admin,
+                'group_id': group_id}
 
     return render(request, "group_admin_panel.html", context=context)
 
@@ -165,6 +164,30 @@ def user_dashboard_group_search(request):
         tag_list = Tag.objects.filter()
 
     return render(request, "search_groups.html", {'groups_with_tags': user_group_details, 'tags': tag_list})
+
+
+def group_admin_confirm_user(request, group_id, user_id):
+    user_group_details = get_user_group_details(request.user.id, group_id)
+
+    if not user_group_details['is_in_group'] or user_group_details['user_status'] == 0:
+        # if is not a member or is a normal member
+        return redirect('group:go_to_group', group_id)
+
+    confirm_user_in_group(group_id, user_id)
+
+    return redirect('group:group_admin', group_id)
+
+
+def group_admin_delete_user(request, group_id, user_id):
+    user_group_details = get_user_group_details(request.user.id, group_id)
+
+    if not user_group_details['is_in_group'] or user_group_details['user_status'] == 0:
+        # if is not a member or is a normal member
+        return redirect('group:go_to_group', group_id)
+
+    delete_user_from_group(group_id, user_id)
+
+    return redirect('group:group_admin', group_id)
 
 
 ########

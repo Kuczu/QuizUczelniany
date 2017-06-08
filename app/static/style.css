@@ -184,3 +184,9 @@ background: rgba(255,255,255,.7);
     bottom: 29px;
     right: 37px;
 }
+.question-answers-results {
+    width: 100%;
+}
+.spanspace > span {
+    margin: 0 4px;
+}

@@ -194,3 +194,11 @@ def get_user_group_details(user_id, group_id):
 
 def get_group_member(group_id):
     return UserGroup.objects.filter(group_id=group_id).select_related('user')
+
+
+def confirm_user_in_group(group_id, user_id):
+    return UserGroup.objects.filter(group_id=group_id, user_id=user_id).select_related('user').update(is_member=True)
+
+
+def delete_user_from_group(group_id, user_id):
+    return UserGroup.objects.filter(group_id=group_id, user_id=user_id).select_related('user').first().delete()
