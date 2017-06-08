@@ -3,7 +3,6 @@
 {% block title2 %}Grupa{% endblock %}
 {% load widget_tweaks %}
 {% block body %}
-	{{ user_group_details.user_status }}
 		{% if user_group_details.user_status > 0 %}
 			<script>
 				document.getElementById("only-for-admin").style.display = "block";
