@@ -38,6 +38,7 @@ class RegistrationForm(ModelForm):
 
         return user
 
+
 class LoginForm(forms.Form):
     login = forms.Field(widget=forms.TextInput)
     password = forms.CharField(widget=forms.PasswordInput)
@@ -45,15 +46,20 @@ class LoginForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
 
-        login = cleaned_data['login']
-        password = cleaned_data['password']
+        login = ''
+        password = ''
+
+        if 'login' in cleaned_data:
+            login = cleaned_data['login']
+
+        if 'password' in cleaned_data:
+            password = cleaned_data['password']
 
         user = authenticate(login=login, password=password)
         if user is None:
             raise forms.ValidationError("Niepoprawne dane logowania")
 
         return cleaned_data
-
 
 
 class ChangeUserPasswordForm(forms.Form):
