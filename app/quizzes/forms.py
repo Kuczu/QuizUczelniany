@@ -39,7 +39,6 @@ class AnswerForm(forms.Form):
         answer_list = []
         tuple_list = []
         items = self.cleaned_data.items()
-        print(items)
         for key, value in items:
             tuple_tmp = (key, value)
             tuple_list.append(tuple_tmp)
