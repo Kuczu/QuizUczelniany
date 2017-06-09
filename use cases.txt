@@ -418,3 +418,37 @@ Główny przepływ zdarzeń:
 Specjalne wymagania: użytkownik musi być zalogowany, należeć do grupy, w grupie znajdować musi się się co najmniej jeden quiz z co najmniej jednym pytaniem
 
 Użytkownik może sprawdzić swój wynik punktowy i zobaczyć w których odpowiedziach zrobił błędy
+##############################################################################################
+
+Dołączenie do grupy
+
+Nazwa: Dołączenie do grupy
+
+Numer: 11
+
+Twórca: Jakub Mędrek
+
+Poziom ważności: Wysoki
+
+Typ przypadku użycia: niezbędny
+
+Aktorzy: zalogowany użytkownik
+
+Krótki opis: proces dołączenia do istniejącej grupy
+
+Warunki wstępne: Użytkownik jest zalogowany, istnieje grupa
+
+Warunki końcowe: Użytkownik zostaje członkiem grupy
+
+Główny przepływ zdarzeń:
+
+1) Użytkownik wybiera grupę do której chce dołączyć
+2.1) Wybrana grupa jest typu zamkniętego
+2.1.1) Użytkownik zgłasza chęć dołączenia do grupy
+2.1.2) administrator grupy zatwierdza użytkownika
+2.2) Wybrana grupa jest typu otwartego
+2.2.1) użytkownik dołącza do grupy
+3) Użytkownik zostaje przeniesiony do strony grupy, zostaje jej członkiem
+Specjalne wymagania: użytkownik musi być zalogowany, musi istnieć grupa
+
+Użytkownik może dodawać quizy, rozwiązywać je, dodawać pytania do quizów, przeglądać pytania i quizy
