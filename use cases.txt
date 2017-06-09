@@ -1,0 +1,420 @@
+Rejestracja
+
+Nazwa: Utwórz konto
+
+Numer: 1
+
+Twórca: Wojciech Jeżowski
+
+Poziom ważności: Wysoki
+
+Typ przypadku użycia: niezbędny
+
+Aktorzy: użytkownik
+
+Krótki opis: utworzenie konta przez nowego użytkownika
+
+Warunki wstępne: nowy użytkownik nie posiada konta w systemie
+
+Warunki końcowe: użytkownik posiada nowo-założone konto w systemie
+
+Główny przepływ zdarzeń:
+
+1) Użytkownik przechodzi do panelu umożliwiajšcego utworzenie nowego konta.
+
+2) Użytkownik wprowadza dane potrzebne do utworzenia konta.
+
+2.1) Użytkownik podaje prawidłowe dane.
+
+2.1.1) Utworzone zostaje konto.
+
+2.1.2) Użytkownik z takim loginem już istnieje - konto nie zostaje założone.
+
+2.2) Użytkownik podaje błędne dane.
+
+2.2.1) Konto nie zostaje założone.
+
+2.2.2) Podany zostaje komunikat o wprowadzeniu błędnych danych.
+
+
+
+Specjalne wymagania: brak
+
+Po założeniu konta użytkownik ma możliwość zalogowania się.
+
+##############################################################################################
+
+Logowanie
+
+Nazwa: Logowanie
+
+Numer: 2
+
+Twórca: Wojciech Jeżowski
+
+Poziom ważności: Wysoki
+
+Typ przypadku użycia: niezbędny
+
+Aktorzy: użytkownik
+
+Krótki opis: proces logowania się użytkownika
+
+Warunki wstępne: użytkownik posiada konto w systemie
+
+Warunki końcowe: użytkownik zostaje uwierzytelniony lub system zwraca informację o braku wierzytelnienia
+
+Główny przepływ zdarzeń:
+
+1) Użytkownik podaje swój login lub email oraz hasło
+
+2) Użytkownik podaje prawidłowe dane
+
+2.1) System uwierzytelnia użytkownika
+
+2.2) Użytkownik otrzymuje dostęp do aplikacji
+
+3) Użytkownik podaje błędne dane
+
+3.1) System zwraca informację o błędnych danych logowania
+
+Specjaln wymagania: brak
+
+Po zalogowaniu się użytkownik otrzymuje dostęp do zarządzania
+
+##############################################################################################
+
+Tworzenie nowej grupy
+
+Nazwa: Zakładanie nowej grupy
+
+Numer: 3
+
+Twórca: Wojciech Jeżowski
+
+Poziom ważności: Wysoki
+
+Typ przypadku użycia: niezbędny
+
+Aktorzy: zalogowany użytkownik
+
+Krótki opis: proces tworzenia nowej grupy
+
+Warunki wstępne: użytkownik jest zalogowany
+
+Warunki końcowe: Nowa grupa zostaje utworzona
+
+Główny przepływ zdarzeń:
+
+1) Użytkownik wybiera opcje dodania nowej grupy
+
+2) Użytkownik wypełnia informacje potrzebne do dodania nowej grupy
+
+2.1) Użytkownik podaje dane które nie spełniajš kryteriów założenia grupy
+
+2.1.1) System zwraca informację o błędnie wypełnionych polach
+
+2.2)  Użytkownik podaje poprawne dane 
+
+2.2.1) Grupa zostaje założona
+
+Specjalne wymagania: użytkownik musi być zalogowany
+
+Po utworzeniu grupy pojawia się w głównym widoku
+
+##############################################################################################
+
+Tworzenie nowego quizu
+
+Nazwa: Tworzenie nowego quizu
+
+Numer: 4
+
+Twórca: Jakub Mędrek
+
+Poziom ważności: Wysoki
+
+Typ przypadku użycia: niezbędny
+
+Aktorzy: zalogowany użytkownik
+
+Krótki opis: proces dodawania nowego quizu
+
+Warunki wstępne: użytkownik jest zalogowany i należy do grupy
+
+Warunki końcowe: Nowy quiz zostaje utworzony
+
+Główny przepływ zdarzeń:
+
+1) Użytkownik wybiera opcje dodania nowego quizu
+
+2) Użytkownik wypełnia informacje potrzebne do dodania nowego quizu
+
+2.1) Użytkownik podaje dane które nie spełniają kryteriów dodania quizu
+
+2.1.1) System zwraca informację o błędnie wypełnionych polach
+
+2.2)  Użytkownik podaje poprawne dane
+
+2.2.1) Quiz zostaje dodany
+
+Specjalne wymagania: użytkownik musi być zalogowany, użytkownik musi należeć do grupy
+
+Po utworzeniu quiz pojawia się w głównym widoku dla grupy
+
+##############################################################################################
+
+Dodawanie pytań do quizu
+
+Nazwa: Dodawanie pytań do quizu
+
+Numer: 5
+
+Twórca: Jakub Mędrek
+
+Poziom ważności: Wysoki
+
+Typ przypadku użycia: niezbędny
+
+Aktorzy: zalogowany użytkownik
+
+Krótki opis: proces dodawania pytań do quizu
+
+Warunki wstępne: użytkownik jest zalogowany, należy do grupy, w grupie znajduje się interesujący użytkownika quiz
+
+Warunki końcowe: Pytanie zostaje dodane do quizu
+
+Główny przepływ zdarzeń:
+
+1) Użytkownik wybiera opcje dodania pytań do quizu
+
+2) Użytkownik wypełnia treść pytania, treści odpowiedzi i podaje wskazówkę
+
+2.1) Użytkownik podaje dane które nie spełniają kryteriów dodania pytania
+
+2.1.1) System zwraca informację o błędnie wypełnionych polach
+
+2.2)  Użytkownik podaje poprawne dane
+
+2.2.1) Pytanie zostaje dodane
+
+Specjalne wymagania: użytkownik musi być zalogowany, użytkownik musi należeć do grupy, w grupie musi znajdować się quiz do którego użytkownik dodaje pytanie
+
+Po utworzeniu pytanie pojawia się na liście pytań dla quizu, można je rozwiązać
+##############################################################################################
+
+Zmiana hasła
+
+Nazwa: Zmiana hasła
+
+Numer: 6
+
+Twórca: Jakub Mędrek
+
+Poziom ważności: Średni
+
+Typ przypadku użycia: dodatkowy
+
+Aktorzy: zalogowany użytkownik
+
+Krótki opis: proces zmiany hasła do konta zalogowanego użytkownika
+
+Warunki wstępne: Użytkownik jest zalogowany
+
+Warunki końcowe: Hasło użytkownika zostaje zmienione
+
+Główny przepływ zdarzeń:
+
+1) Użytkownik przechodzi do strony z ustawieniami konta
+
+2) Użytkownik wpisuje stare hasło, oraz dwukrotnie nowe.
+
+2.1) Użytkownik podaje błędne dotychczasowe hasło
+
+2.1.1) System zwraca informację o błędnie wypełnionych polach
+
+2.2)  Nowe hasło nie jest takie same w obu polach
+
+2.2.1) System zwraca informację o błędnie wypełnionych polach
+2.3)  Wszystkie dane są poprawne
+2.3.1)Hasło użytkownika zostaje zmienione
+
+Specjalne wymagania: użytkownik musi być zalogowany
+
+Po zmianie hasła przy kolejnych logowaniach użytkownik może użyć jedynie nowego hasła
+##############################################################################################
+
+Zmiana adresu email
+
+Nazwa: Zmiana adresu email
+
+Numer: 7
+
+Twórca: Jakub Mędrek
+
+Poziom ważności: Niski
+
+Typ przypadku użycia: dodatkowy
+
+Aktorzy: zalogowany użytkownik
+
+Krótki opis: proces zmiany adresu email powiązanego z kontem zalogowanego użytkownika
+
+Warunki wstępne: Użytkownik jest zalogowany
+
+Warunki końcowe: Adres email użytkownika zostaje zmieniony
+
+Główny przepływ zdarzeń:
+
+1) Użytkownik przechodzi do strony z ustawieniami konta
+
+2) Użytkownik wpisuje nowy adres email
+
+2.1) Użytkownik podaje błędny adres
+
+2.1.1) System zwraca informację o błędnie wypełnionych polach
+2.2) Użytkownik podaje błędny adres
+2.2.1) Adres email użytkownika zostaje zmieniony
+
+Specjalne wymagania: użytkownik musi być zalogowany
+
+Po zmianie hasła przy kolejnych logowaniach użytkownik może użyć nowego adresu email
+##############################################################################################
+
+Wyszukiwanie grup
+
+Nazwa: Wyszukiwanie grup
+
+Numer: 8
+
+Twórca: Jakub Mędrek
+
+Poziom ważności: Średni
+
+Typ przypadku użycia: dodatkowy
+
+Aktorzy: zalogowany użytkownik
+
+Krótki opis: proces wyszukiwania grupy po nazwie lub opisie lub ich fragmencie
+
+Warunki wstępne: Użytkownik jest zalogowany
+
+Warunki końcowe: Wyświetlona zostaje lista grup pasująca do wzorca
+
+Główny przepływ zdarzeń:
+
+1) Użytkownik przechodzi do strony z wyszukiwania grup
+
+2) Użytkownik wpisuje wzorzec wyszukiwania
+
+2.1) System nie znajduje grup pasujących do zadanego wzorca
+
+2.1.1) System zwraca informację o braku grup pasujących do wzorca
+2.2) System znajduje grupy pasujące do zadanego wzorca
+2.2.1) System wypisuje grupy pasujące do wzorca
+
+Specjalne wymagania: użytkownik musi być zalogowany
+
+Użytkownik może przejść do którejś ze znalezionych grup
+##############################################################################################
+
+Wyszukiwanie grup
+
+Nazwa: Wyszukiwanie grup
+
+Numer: 8
+
+Twórca: Jakub Mędrek
+
+Poziom ważności: Średni
+
+Typ przypadku użycia: dodatkowy
+
+Aktorzy: zalogowany użytkownik
+
+Krótki opis: proces wyszukiwania grupy po nazwie lub opisie lub ich fragmencie
+
+Warunki wstępne: Użytkownik jest zalogowany
+
+Warunki końcowe: Wyświetlona zostaje lista grup pasująca do wzorca
+
+Główny przepływ zdarzeń:
+
+1) Użytkownik przechodzi do strony z wyszukiwania grup
+
+2) Użytkownik wpisuje wzorzec wyszukiwania
+
+2.1) System nie znajduje grup pasujących do zadanego wzorca
+
+2.1.1) System zwraca informację o braku grup pasujących do wzorca
+2.2) System znajduje grupy pasujące do zadanego wzorca
+2.2.1) System wypisuje grupy pasujące do wzorca
+
+Specjalne wymagania: użytkownik musi być zalogowany
+
+Użytkownik może przejść do którejś ze znalezionych grup
+##############################################################################################
+
+Wylogowywanie
+
+Nazwa: Wylogowywanie
+
+Numer: 9
+
+Twórca: Jakub Mędrek
+
+Poziom ważności: Wysoki
+
+Typ przypadku użycia: niezbędny
+
+Aktorzy: zalogowany użytkownik
+
+Krótki opis: proces wylogowywania użytkownika z aplikacji
+
+Warunki wstępne: Użytkownik jest zalogowany
+
+Warunki końcowe: Użytkownik zostaje wylogowany
+
+Główny przepływ zdarzeń:
+
+1) Użytkownik używa opcji "wyloguj"
+
+2) Użytkownik zostaje wylogowany
+
+Specjalne wymagania: użytkownik musi być zalogowany
+
+Użytkownik może zalogować się ponownie lub skorzystać z innego konta
+##############################################################################################
+
+Wylogowywanie
+
+Nazwa: Rozwiązywanie quizu
+
+Numer: 10
+
+Twórca: Jakub Mędrek
+
+Poziom ważności: Wysoki
+
+Typ przypadku użycia: niezbędny
+
+Aktorzy: zalogowany użytkownik
+
+Krótki opis: proces rozwiązywania quizu
+
+Warunki wstępne: Użytkownik jest zalogowany, należy do grupy, w grupie znajduje się co najmniej jeden quiz z co najmniej jednym pytaniem
+
+Warunki końcowe: Wyświetlone zostają wyniki, poprawne oraz zaznaczone odpowiedzi
+
+Główny przepływ zdarzeń:
+
+1) Użytkownik rozpoczyna rozwiązywanie quizu
+2) Użytkownik Zaznacza odpowiedzi w aktualnym pytaniu
+2.1) W quizie znajduje się więcej pytań
+2.1.1) Wyświetlone zostaje kolejne pytanie
+2.2) W quizie nie ma już więcej pytań
+2.2.1) Wyświetlona zostaje strona z wynikami podejścia do quizu, poprawne oraz zaznaczone odpowiedzi
+
+Specjalne wymagania: użytkownik musi być zalogowany, należeć do grupy, w grupie znajdować musi się się co najmniej jeden quiz z co najmniej jednym pytaniem
+
+Użytkownik może sprawdzić swój wynik punktowy i zobaczyć w których odpowiedziach zrobił błędy
